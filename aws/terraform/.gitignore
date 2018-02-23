@@ -1,0 +1,5 @@
+mykey*
+myaccount*
+.terraform
+terraform.tfstate*
+terraform.tfvars
