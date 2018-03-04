@@ -1,6 +1,5 @@
 #!/bin/bash
 SPINNAKER_VERSION=1.6.0
-set -ex
 curl -Os https://raw.githubusercontent.com/spinnaker/halyard/master/install/debian/InstallHalyard.sh
 sudo bash InstallHalyard.sh --user ubuntu
 curl -fsSL get.docker.com -o get-docker.sh
@@ -33,5 +32,7 @@ sudo hal deploy apply
 sudo echo "host: 0.0.0.0" | tee \
     /home/ubuntu/.hal/default/service-settings/gate.yml \
     /home/ubuntu/.hal/default/service-settings/deck.yml
-sudo hal deploy apply 
+sudo hal deploy apply
+sudo systemctl daemon-reload
 sudo hal deploy connect
+printf " -------------------------------------------------------------- \n|     Connect here to spinnaker: http://192.168.33.10:9000/    |\n --------------------------------------------------------------"
