@@ -12,5 +12,3 @@ hal config provider kubernetes account add my-k8s-v2-account \
     --provider-version v2 \
     --context $(kubectl config current-context)
 
-hal config features edit --artifacts true
-
