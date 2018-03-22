@@ -11,3 +11,5 @@ hal config features edit --artifacts true
 hal config artifact github enable
 hal config artifact github account add $ARTIFACT_ACCOUNT_NAME \
     --token-file $TOKEN_FILE
+
+# webhook address: http://ip:8084/webhooks/git/github
