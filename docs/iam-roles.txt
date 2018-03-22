@@ -1,0 +1,54 @@
+IAM ROLES:
+----------
+Role:
+BaseIAMRole
+
+Policy:
+no role
+
+Policyname:
+SpinnakerAssumeRolePolicy
+
+Policy:
+{
+    "Version": "2012-10-17",
+    "Statement": [{
+        "Action": "sts:AssumeRole",
+        "Resource": [
+            "arn:aws:iam::${MANAGING_ACCOUNT_ID}:role/spinnakerManaged",
+            "arn:aws:iam::${MANAGED_ACCOUNT_ID}:role/spinnakerManaged"
+        ],
+        "Effect": "Allow"
+    }]
+}
+Policyname:
+SpinnakerPassRole
+Policy:
+{
+    "Version": "2012-10-17",
+    "Statement": [{
+        "Effect": "Allow",
+        "Action": [ "ec2:*" ],
+        "Resource": "*"
+    },
+    {
+        "Effect": "Allow",
+        "Action": "iam:PassRole",
+        "Resource": "arn:aws:iam::${MANAGING_ACCOUNT_ID}:role/BaseIAMRole"
+    }]
+}
+
+Policyname:
+spinnakerManaged
+Policy:
+{
+    "Version": "2012-10-17",
+    "Statement": [{
+        "Sid": "1",
+        "Effect": "Allow",
+        "Principal": {
+            "AWS": "${AUTH_ARN}"
+        },
+    "Action": "sts:AssumeRole"
+    }]
+}
