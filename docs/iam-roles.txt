@@ -6,6 +6,8 @@ BaseIAMRole
 Policy:
 no role
 
+--------------------------------------------------------------------------------
+
 Policyname:
 SpinnakerAssumeRolePolicy
 
@@ -21,6 +23,9 @@ Policy:
         "Effect": "Allow"
     }]
 }
+
+--------------------------------------------------------------------------------
+
 Policyname:
 SpinnakerPassRole
 Policy:
@@ -37,6 +42,8 @@ Policy:
         "Resource": "arn:aws:iam::${MANAGING_ACCOUNT_ID}:role/BaseIAMRole"
     }]
 }
+
+--------------------------------------------------------------------------------
 
 Policyname:
 spinnakerManaged
