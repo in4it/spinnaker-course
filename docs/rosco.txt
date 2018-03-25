@@ -1,3 +1,6 @@
+  configDir: /opt/rosco/config/packer/
+
+----------------
 
 debianRepository: https://s3.amazonaws.com/spinnaker-debian-repo-jorn/ xenial main
 
