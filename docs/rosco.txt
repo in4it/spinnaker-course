@@ -1,0 +1,26 @@
+
+debianRepository: https://s3.amazonaws.com/spinnaker-debian-repo-jorn/ xenial main
+
+----------------
+
+  enabled: true
+
+----------------
+
+    baseImages:
+    - baseImage:
+        id: ubuntu xenial
+        shortDescription: v16.04
+        detailedDescription: Ubuntu Xenial 16.04 LTS
+        packageType: deb
+        # You can specify the templateFile used for this baseImage.
+        # If not specified, the default templateFile will be used.
+        templateFile: aws-ebs.json
+      virtualizationSettings:
+      - region: us-east-1
+        virtualizationType: hvm
+        instanceType: t2.micro
+        sourceAmi: ami-43a15f3e
+        sshUserName: ubuntu
+        spotPrice: 0
+        spotPriceAutoProduct: Linux/UNIX (Amazon VPC)
