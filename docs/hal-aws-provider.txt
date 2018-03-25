@@ -1,0 +1,11 @@
+s3
+----------
+hal config storage s3 edit --access-key-id $YOUR_SECRET_KEY_ID --secret-access-key
+hal config storage edit --type s3
+
+AWS Provider
+------------
+hal config provider aws edit --access-key-id $YOUR_SECRET_KEY_ID --secret-access-key
+hal config provider aws account add $AWS_ACCOUNT_NAME --account-id ${ACCOUNT_ID} --assume-role role/spinnakerManaged
+hal config provider aws account edit $AWS_ACCOUNT_NAME --regions us-east-1
+hal config provider aws enable
