@@ -1,3 +1,7 @@
+cp /opt/rosco/config/rosco.yml ~/.hal/default/profiles
+
+----------------  
+
   configDir: /opt/rosco/config/packer/
 
 ----------------
@@ -10,7 +14,6 @@ debianRepository: https://s3.amazonaws.com/spinnaker-debian-repo-jorn/ xenial ma
 
 ----------------
 
-    baseImages:
     - baseImage:
         id: ubuntu xenial
         shortDescription: v16.04
