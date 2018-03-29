@@ -1,0 +1,15 @@
+sudo rngd -r /dev/urandom
+
+gpg --gen-key
+
+vi ~/.aptly.conf
+
+  "S3PublishEndpoints": {
+    "spinnaker-debian-repo": {
+      "region": "us-east-1",
+      "bucket": "spinnaker-debian-repo-jorn",
+      "acl": "public-read",
+      "awsAccessKeyID": "access key id",
+      "awsSecretAccessKey": "aws secret access key"
+    }
+  },
