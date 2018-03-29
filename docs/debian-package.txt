@@ -2,8 +2,9 @@ sudo rngd -r /dev/urandom
 gpg --gen-key
 
 aptly publish repo release s3:spinnaker-debian-repo: -skip-signing
-docker build -t builddep -f Dockerfile.builddep .
-sudo docker exec builddep bash -c 'cd /root; apt-get install -y npm ;git-buildpackage ;cp ../*.deb . ;exit'
+
+sudo docker build -t builddep -f Dockerfile.builddep .
+sudo docker exec builddep bash -c 'cd /root; apt-get install -y npm ;git-buildpackage ;cp ../*.deb . '
 
 vi ~/.aptly.conf
 
