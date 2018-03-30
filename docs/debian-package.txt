@@ -1,15 +1,8 @@
-sudo rngd -r /dev/urandom
-gpg --gen-key
 
-aptly publish repo release s3:spinnaker-debian-repo: -skip-signing
-
-sudo docker build -t builddep -f Dockerfile.builddep .
-sudo docker exec builddep bash -c 'cd /root; apt-get install -y npm ;git-buildpackage ;cp ../*.deb . '
-
-vi ~/.aptly.conf
+aptly repo create -distribution=xenial -component=main release
 
   "S3PublishEndpoints": {
-    "spinnaker-debian-repo": {
+    "spinnaker-debian-repo-jorn": {
       "region": "us-east-1",
       "bucket": "spinnaker-debian-repo-jorn",
       "acl": "public-read",
@@ -17,3 +10,27 @@ vi ~/.aptly.conf
       "awsSecretAccessKey": "aws secret access key"
     }
   },
+
+aptly publish repo release s3:spinnaker-debian-repo: -skip-signing
+
+
+sudo docker build -t builddep -f Dockerfile.builddep .
+
+Jenkins job:
+Step 1:
+-------
+echo "#!/bin/bash
+cd /root; apt-get install -y npm ;git-buildpackage --git-ignore-new --git-ignore-branch; cp ../*.deb ." > install.sh
+sudo docker run -v "$PWD":/root builddep bash /root/install.sh
+
+Step 2:
+-------
+aptly repo add -force-replace release *.deb
+
+Step 3:
+------- 
+aptly publish repo -skip-signing=true release s3:spinnaker-debian-repo-jorn: || true
+
+Step 4:
+-------
+aptly publish update -force-overwrite -skip-signing=true xenial s3:spinnaker-debian-repo-jorn:  
