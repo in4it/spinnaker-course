@@ -1,0 +1,47 @@
+Packer Additional parameters
+---------------------------- 
+-machine-readable -var aws_access_key=your_aws_access_key -var "aws_secret_key=your_aws_secret_key"
+
+Packer Template Text
+--------------------
+ {
+ "builders": [{
+    "type": "amazon-ebs",
+    "access_key": "{{user `aws_access_key`}}",
+    "secret_key": "{{user `aws_secret_key`}}",
+    "region": "us-east-1",
+    "source_ami_filter": {
+      "filters": {
+      "virtualization-type": "hvm",
+      "name": "ubuntu/images/*ubuntu-xenial-16.04-amd64-server-*",
+      "root-device-type": "ebs"
+      },
+      "owners": ["099720109477"],
+      "most_recent": true
+    },
+    "instance_type": "t2.micro",
+    "ssh_username": "ubuntu",
+    "ami_name": "packer-example {{timestamp}}"
+  }],
+
+  "provisioners": [{
+    "type": "shell",
+    "inline": [
+      "sudo apt-get update",
+      "sudo apt-get install -y nginx"
+    ]
+  }],
+
+  "post-processors": [
+    {
+      "type": "manifest",
+      "output": "manifest.json",
+      "strip_path": true
+    }
+  ]
+}
+
+
+Spinnaker deploy edit json
+--------------------------
+      "amiName": "${ #stage( 'Jenkins' )['context']['builds'][ #stage( 'Jenkins' )['context']['builds'].size() -1 ]['artifact_id'].split(':')[1] }",
