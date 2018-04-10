@@ -9,7 +9,7 @@ sh get-docker.sh
 sudo usermod -aG docker ubuntu
 sudo docker run -p 127.0.0.1:9090:9000 -d --name minio1 -v /mnt/data:/data -v /mnt/config:/root/.minio minio/minio server /data
 
-sudo apt-get -y install jq
+sudo apt-get -y install jq apt-transport-https
 
 MINIO_SECRET_KEY=`echo $(sudo docker exec minio1 cat /root/.minio/config.json) |jq -r '.credential.secretKey'`
 MINIO_ACCESS_KEY=`echo $(sudo docker exec minio1 cat /root/.minio/config.json) |jq -r '.credential.accessKey'`
