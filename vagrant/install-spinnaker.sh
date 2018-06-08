@@ -29,7 +29,7 @@ fi
 
 sudo hal config version edit --version $SPINNAKER_VERSION
 sudo hal deploy apply
-sudo echo "host: 0.0.0.0" | tee \
+sudo echo "host: 0.0.0.0" |sudo tee \
     /home/ubuntu/.hal/default/service-settings/gate.yml \
     /home/ubuntu/.hal/default/service-settings/deck.yml
 sudo hal deploy apply
