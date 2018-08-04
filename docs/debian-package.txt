@@ -2,12 +2,12 @@
 aptly repo create -distribution=xenial -component=main release
 
   "S3PublishEndpoints": {
-    "spinnaker-debian-repo-jorn": {
+    "spinnaker-debian-repo-{yourName}": {
       "region": "us-east-1",
-      "bucket": "spinnaker-debian-repo-jorn",
+      "bucket": "spinnaker-debian-repo-"{yourName},
       "acl": "public-read",
-      "awsAccessKeyID": "access key id",
-      "awsSecretAccessKey": "aws secret access key"
+      "awsAccessKeyID": "{yourAcessKeyID}",
+      "awsSecretAccessKey": "{yourAcessKey}"
     }
   },
 
@@ -29,8 +29,8 @@ aptly repo add -force-replace release *.deb
 
 Step 3:
 ------- 
-aptly publish repo -skip-signing=true release s3:spinnaker-debian-repo-jorn: || true
+aptly publish repo -skip-signing=true release s3:spinnaker-debian-repo-{yourName}: || true
 
 Step 4:
 -------
-aptly publish update -force-overwrite -skip-signing=true xenial s3:spinnaker-debian-repo-jorn:  
+aptly publish update -force-overwrite -skip-signing=true xenial s3:spinnaker-debian-repo-{yourName}:  
