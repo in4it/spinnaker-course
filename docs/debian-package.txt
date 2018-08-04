@@ -4,7 +4,7 @@ aptly repo create -distribution=xenial -component=main release
   "S3PublishEndpoints": {
     "spinnaker-debian-repo-{yourName}": {
       "region": "us-east-1",
-      "bucket": "spinnaker-debian-repo-"{yourName},
+      "bucket": "spinnaker-debian-repo-{yourName}",
       "acl": "public-read",
       "awsAccessKeyID": "{yourAcessKeyID}",
       "awsSecretAccessKey": "{yourAcessKey}"
