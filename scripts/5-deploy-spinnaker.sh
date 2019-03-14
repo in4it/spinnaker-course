@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # install dependencies
-sudo apt-get -y install redis
+sudo apt update
+sudo apt-get -y install redis-server
 sudo systemctl enable redis-server
 sudo systemctl start redis-server
 
