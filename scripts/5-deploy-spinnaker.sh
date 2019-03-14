@@ -1,7 +1,16 @@
 #!/bin/bash
 
+# install dependencies
+sudo apt-get -y install redis
+sudo systemctl enable redis-server
+sudo systemctl start redis-server
+
+echo 'spinnaker.s3:
+  versioning: false
+' > ~/.hal/default/profiles/front50-local.yml
+
 # env flag that need to be set:
-SPINNAKER_VERSION=1.9.5
+SPINNAKER_VERSION=1.12.6
 
 set -e
 
