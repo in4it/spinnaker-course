@@ -4,19 +4,6 @@ Start as usual
 Host $ vagrant up
 ```
 
-```
-Host $ vagrant ssh
-```
-
-The enable and start Redis
-
-```
-VM $ sudo systemctl enable redis-server.service
-VM $ sudo systemctl start redis-server.service
-VM $ sudo systemctl restart gate
-VM $ sudo systemctl restart front50.service
-```
-
 Then, you would need to do a ssh tunnel in your host: `nano $HOME/.ssh/config`
 
 ```
