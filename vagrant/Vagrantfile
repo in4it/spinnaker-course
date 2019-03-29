@@ -4,9 +4,10 @@ Vagrant.configure("2") do |config|
   config.vm.provider "virtualbox" do |vb|
     vb.memory = "8056"
     vb.cpus = 4
-  config.vm.provider :virtualbox do |vb|
+    config.vm.provider :virtualbox do |vb|
         vb.name = "spinnaker"
+    end
   end
-end
   config.vm.provision "shell", path: "install-spinnaker.sh"
+  # config.disksize.size = '30GB'
 end
