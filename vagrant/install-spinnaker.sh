@@ -50,3 +50,5 @@ sudo hal deploy apply
 sudo systemctl daemon-reload
 sudo hal deploy connect
 printf " -------------------------------------------------------------- \n|     Connect here to spinnaker: http://192.168.33.10:9000/    |\n --------------------------------------------------------------"
+sudo systemctl enable redis-server.service
+sudo systemctl start redis-server.service
