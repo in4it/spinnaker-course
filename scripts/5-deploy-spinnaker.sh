@@ -11,7 +11,7 @@ echo 'spinnaker.s3:
 ' > ~/.hal/default/profiles/front50-local.yml
 
 # env flag that need to be set:
-SPINNAKER_VERSION=1.12.6
+SPINNAKER_VERSION=1.17.5
 
 set -e
 
