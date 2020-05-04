@@ -11,8 +11,8 @@ sudo docker run -p 127.0.0.1:9090:9000 -d --name minio1 -v /mnt/data:/data -v /m
 
 sudo apt-get -y install jq apt-transport-https
 
-MINIO_SECRET_KEY=`echo $(sudo docker exec minio1 cat /data/.minio.sys/config/config.json) |jq -r '.credential.secretKey'`
-MINIO_ACCESS_KEY=`echo $(sudo docker exec minio1 cat /data/.minio.sys/config/config.json) |jq -r '.credential.accessKey'`
+MINIO_SECRET_KEY="minioadmin"
+MINIO_ACCESS_KEY="minioadmin"
 
 echo $MINIO_SECRET_KEY | hal config storage s3 edit --endpoint http://127.0.0.1:9090 \
     --access-key-id $MINIO_ACCESS_KEY \
