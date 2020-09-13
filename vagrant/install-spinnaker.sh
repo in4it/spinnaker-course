@@ -13,6 +13,9 @@ sudo mkswap /swapfile
 echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 sudo swapon /swapfile
 
+sudo apt-get update
+sudo apt-get -y install jq default-jdk
+
 SPINNAKER_VERSION=1.17.5
 curl -Os https://raw.githubusercontent.com/spinnaker/halyard/master/install/debian/InstallHalyard.sh
 sudo bash InstallHalyard.sh --user ubuntu
@@ -20,8 +23,6 @@ curl -fsSL get.docker.com -o get-docker.sh
 sh get-docker.sh
 sudo usermod -aG docker ubuntu
 sudo docker run -p 127.0.0.1:9090:9000 -d --name minio1 -v /mnt/data:/data -v /mnt/config:/root/.minio minio/minio:RELEASE.2018-07-31T02-11-47Z server /data
-
-sudo apt-get -y install jq
 
 MINIO_SECRET_KEY=`echo $(sudo docker exec minio1 cat /root/.minio/config.json) |jq -r '.credential.secretKey'`
 MINIO_ACCESS_KEY=`echo $(sudo docker exec minio1 cat /root/.minio/config.json) |jq -r '.credential.accessKey'`
