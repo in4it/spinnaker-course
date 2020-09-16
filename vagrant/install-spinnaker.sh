@@ -47,9 +47,14 @@ sudo hal deploy apply
 sudo echo "host: 0.0.0.0" |sudo tee \
     /home/ubuntu/.hal/default/service-settings/gate.yml \
     /home/ubuntu/.hal/default/service-settings/deck.yml
+sudo hal config security api edit --cors-access-pattern "http://192.168.33.10:9000"
+sudo hal config security ui edit --override-base-url http://192.168.33.10:9000
+sudo hal config security api edit --override-base-url http://192.168.33.10:8084
 sudo hal deploy apply
 sudo systemctl daemon-reload
 sudo hal deploy connect
-printf " -------------------------------------------------------------- \n|     Connect here to spinnaker: http://192.168.33.10:9000/    |\n --------------------------------------------------------------"
 sudo systemctl enable redis-server.service
 sudo systemctl start redis-server.service
+printf " -------------------------------------------------------------- \n|     Starting spinnaker, this can take several minutes        |\n --------------------------------------------------------------"
+sleep 300 #needed to be sure everyting is started correctly 
+printf " -------------------------------------------------------------- \n|     Connect here to spinnaker: http://192.168.33.10:9000/    |\n --------------------------------------------------------------"
