@@ -13,10 +13,12 @@ sudo mkswap /swapfile
 echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 sudo swapon /swapfile
 
-sudo apt-get update
-sudo apt-get -y install jq default-jdk
+sudo add-apt-repository ppa:openjdk-r/ppa -y
 
-SPINNAKER_VERSION=1.17.5
+sudo apt-get update
+sudo apt-get -y install jq openjdk-11-jdk
+
+SPINNAKER_VERSION=1.21.5
 curl -Os https://raw.githubusercontent.com/spinnaker/halyard/master/install/debian/InstallHalyard.sh
 sudo bash InstallHalyard.sh --user ubuntu
 curl -fsSL get.docker.com -o get-docker.sh
