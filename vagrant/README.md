@@ -1,6 +1,7 @@
 Start as usual
 
 ```
+Host $ vagrant plugin install vagrant-disksize
 Host $ vagrant up
 ```
 

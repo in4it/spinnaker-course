@@ -18,13 +18,16 @@ sudo add-apt-repository ppa:openjdk-r/ppa -y
 sudo apt-get update
 sudo apt-get -y install jq openjdk-11-jdk
 
-SPINNAKER_VERSION=1.21.5
+SPINNAKER_VERSION=1.28.1
 curl -Os https://raw.githubusercontent.com/spinnaker/halyard/master/install/debian/InstallHalyard.sh
-sudo bash InstallHalyard.sh --user ubuntu
+sudo bash InstallHalyard.sh
 curl -fsSL get.docker.com -o get-docker.sh
 sh get-docker.sh
-sudo usermod -aG docker ubuntu
+sudo usermod -aG docker spinnaker
 sudo docker run -p 127.0.0.1:9090:9000 -d --name minio1 -v /mnt/data:/data -v /mnt/config:/root/.minio minio/minio:RELEASE.2018-07-31T02-11-47Z server /data
+
+mkdir /home/spinnaker
+chown spinnaker:spinnaker /home/spinnaker
 
 MINIO_SECRET_KEY=`echo $(sudo docker exec minio1 cat /root/.minio/config.json) |jq -r '.credential.secretKey'`
 MINIO_ACCESS_KEY=`echo $(sudo docker exec minio1 cat /root/.minio/config.json) |jq -r '.credential.accessKey'`
@@ -47,11 +50,11 @@ fi
 sudo hal config version edit --version $SPINNAKER_VERSION
 sudo hal deploy apply
 sudo echo "host: 0.0.0.0" |sudo tee \
-    /home/ubuntu/.hal/default/service-settings/gate.yml \
-    /home/ubuntu/.hal/default/service-settings/deck.yml
-sudo hal config security api edit --cors-access-pattern "http://192.168.33.10:9000"
-sudo hal config security ui edit --override-base-url http://192.168.33.10:9000
-sudo hal config security api edit --override-base-url http://192.168.33.10:8084
+    /home/spinnaker/.hal/default/service-settings/gate.yml \
+    /home/spinnaker/.hal/default/service-settings/deck.yml
+sudo hal config security api edit --cors-access-pattern "http://192.168.56.10:9000"
+sudo hal config security ui edit --override-base-url http://192.168.56.10:9000
+sudo hal config security api edit --override-base-url http://192.168.56.10:8084
 sudo hal deploy apply
 sudo systemctl daemon-reload
 sudo hal deploy connect
@@ -59,4 +62,4 @@ sudo systemctl enable redis-server.service
 sudo systemctl start redis-server.service
 printf " -------------------------------------------------------------- \n|     Starting spinnaker, this can take several minutes        |\n --------------------------------------------------------------"
 sleep 300 #needed to be sure everyting is started correctly 
-printf " -------------------------------------------------------------- \n|     Connect here to spinnaker: http://192.168.33.10:9000/    |\n --------------------------------------------------------------"
+printf " -------------------------------------------------------------- \n|     Connect here to spinnaker: http://192.168.56.10:9000/    |\n --------------------------------------------------------------"
