@@ -21,14 +21,4 @@ if [ -z "${SPINNAKER_VERSION}" ] ; then
 fi
 
 sudo hal config version edit --version $SPINNAKER_VERSION
-
-# fix https://github.com/spinnaker/spinnaker/issues/6428
-echo 'install_helm() {
-   wget https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get
-   chmod +x get
--  bash -x ./get
-+  bash -x ./get --version v2.17.0
-   rm get
- }' > /var/lib/dpkg/info/spinnaker-rosco.postinst
-
 sudo hal deploy apply
