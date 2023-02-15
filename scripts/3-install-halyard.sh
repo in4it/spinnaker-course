@@ -9,7 +9,7 @@ sudo apt-get -y install jq openjdk-11-jdk
 
 curl -O https://raw.githubusercontent.com/spinnaker/halyard/master/install/debian/InstallHalyard.sh
 sudo bash InstallHalyard.sh
-mkdir /home/spinnaker
+mkdir -p /home/spinnaker
 chown spinnaker:spinnaker /home/spinnaker
 curl -fsSL get.docker.com -o get-docker.sh
 sh get-docker.sh
